@@ -1,0 +1,155 @@
+extends part
+
+block partpage
+  .col-lg-8(data-ng-init="sideBar = false")
+    btn.btn.btn-primary(data-ng-click="toggleEdit()")
+      span.far.fa-edit.fa-fw.mr-1
+      span(data-ng-show="inventory.partEdit === false") Edit Part
+      span(data-ng-show="inventory.partEdit === true") Save Changes
+    btn.btn.btn-primary.ml-2(data-ng-click="toggleEdit(true)", data-ng-show="inventory.partEdit === true")
+      span.fa.fa-ban.fa-fw.mr-1
+      span Cancel
+    p
+    table.table.table-sm
+      tbody
+        tr
+          td.float-left
+            label {{partModel.partNum.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current {{inventory.partFocus.PART_NUM}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                input.form-control(type="text", value="{{inventory.partFocus.PART_NUM}}", disabled)
+        //- tr
+        //-   td.float-left
+        //-     label Test DateTime:
+        //-   td.float-right(data-ng-show=" inventory.partEdit == false")
+        //-     .current
+        //-       span {{testDate}}
+        //-   td.float-right(data-ng-show=" inventory.partEdit == true")
+        //-     .change
+        //-       .input-group.input-group-sm
+        //-         input.form-control(datepicker, placeholder="mm/dd/yyyy", data-ng-model="testDate")
+        tr
+          td.float-left
+            label {{partModel.partManuf.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.MAN_NAME}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change(data-ng-init="getManufacturers()")
+              .input-group.input-group-sm
+                select.form-control(data-ng-model="inventory.partFocus.PART_MANUF", data-ng-options="l.MAN_INDEX as l.MAN_NAME for l in viewOptions.manufacturers | orderBy:'MAN_NAME'")
+        tr
+          td.float-left
+            label {{partModel.partName.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.PART_NAME}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                input.form-control(type="text", placeholder="Part Name", data-ng-model="inventory.partChange.PART_NAME")
+        tr
+          td.float-left
+            label {{partModel.partDesc.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.PART_DESC}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                textarea.form-control(type="text", placeholder="Description", data-ng-model="inventory.partChange.PART_DESC")
+        tr
+          td.float-left
+            label {{partModel.partNotes.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.PART_NOTES ? inventory.partFocus.PART_NOTES : 'No recorded notes.'}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                textarea.form-control(type="text", placeholder="Notes", data-ng-model="inventory.partChange.PART_NOTES")
+        tr
+          td.float-left
+            label {{partModel.partCost.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.PART_COST | currency}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                input.form-control(type="text", placeholder="Cost", data-ng-model="inventory.partChange.PART_COST")
+        tr(data-ng-if="inventory.partFocus.PART_SERIAL == 0")
+          td.float-left
+            label {{partModel.partStock.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.PART_STOCK}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                input.form-control(type="text", value="{{inventory.partFocus.PART_STOCK}}", disabled)
+        tr(data-ng-if="inventory.partFocus.PART_SERIAL !== 0")
+          td.float-left
+            label {{partModel.spartStock.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.SPART_STOCK}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                input.form-control(type="text", value="{{inventory.partFocus.SPART_STOCK}}", disabled)
+        tr
+          td.float-left
+            label {{partModel.partCat.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.CAT_NAME}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change(data-ng-init="getCats()")
+              .input-group.input-group-sm
+                select.form-control(data-ng-model="inventory.partChange.PART_CAT", data-ng-options="l.CAT_INDEX as l.CAT_NAME for l in viewOptions.categories")
+        tr
+          td.float-left
+            label {{partModel.partSupl.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.SUPL_NAME}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change(data-ng-init="getSuppliers()")
+              .input-group.input-group-sm
+                select.form-control(data-ng-model="inventory.partChange.PART_SUPL", data-ng-options="l.SUPL_INDEX as l.SUPL_NAME for l in viewOptions.suppliers")
+        tr
+          td.float-left
+            label {{partModel.partStore.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.LOC_NAME}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change(data-ng-init="getStores()")
+              .input-group.input-group-sm
+                select.form-control(data-ng-model="inventory.partChange.PART_STORE", data-ng-options="l.LOC_INDEX as l.LOC_NAME for l in viewOptions.stores")
+        tr
+          td.float-left
+            label {{partModel.partSerial.fieldDisp}}:
+          td.float-right(data-ng-show=" inventory.partEdit == false")
+            .current
+              span {{inventory.partFocus.PART_SERIAL | serialization}}
+          td.float-right(data-ng-show=" inventory.partEdit == true")
+            .change
+              .input-group.input-group-sm
+                .btn-group.btn-group-justified(data-toggle="buttons")
+                  .btn-group
+                    label.btn.btn-outline-secondary.btn-sm(data-ng-class="{active: inventory.partChange.PART_SERIAL === 0}") None
+                      input(type="radio", name="options", autocomplete="off", data-ng-model="inventory.partChange.PART_SERIAL", value="0")
+                  .btn-group
+                    label.btn.btn-outline-secondary.btn-sm(data-ng-class="{active: inventory.partChange.PART_SERIAL === 1}") Simple
+                      input(type="radio", name="options", autocomplete="off", data-ng-model="inventory.partChange.PART_SERIAL", value="1")
+                  .btn-group
+                    label.btn.btn-outline-secondary.btn-sm(data-ng-class="{active: inventory.partChange.PART_SERIAL === 2}") Advanced
+                      input(type="radio", name="options", autocomplete="off", data-ng-model="inventory.partChange.PART_SERIAL", value="2")
+                //- input.form-control(type="text", placeholder="Serialization", value="{{inventory.partFocus.PART_SERIAL}}")
+  .col-lg-4
+    | Additional information

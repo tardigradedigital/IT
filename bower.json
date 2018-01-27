@@ -1,0 +1,33 @@
+{
+  "name": "cbcit",
+  "version": "2.0.0",
+  "authors": [
+    "techjustin <techjustin@coboco.net>"
+  ],
+  "description": "//coboco/it",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.7",
+    "angular-animate": "^1.6.7",
+    "angular-mocks": "^1.6.7",
+    "angular-resource": "^1.6.7",
+    "angular-route": "^1.6.7",
+    "bootstrap": "^4.0.0",
+    "popper.js": "^1.12.5",
+    "jquery": "^3.2.1",
+    "jquery-color": "^2.1.2",
+    "titilliumWeb": "https://google-fonts.azurewebsites.net/googleFonts/TitilliumWeb?family=Titillium+Web:200,300",
+    "event-source-polyfill": "^0.0.11",
+    "angular-preload-image": "latest",
+    "angular-sanitize": "^1.6.7",
+    "angular-ui-select": "^0.19.8",
+    "angular-chart.js": "^1.1.1",
+    "inobounce": "^0.1.0",
+    "jquery-ui": "^1.12.1",
+    "angular-filter": "^0.5.17"
+  },
+  "resolutions": {
+    "angular": "^1.5.5"
+  }
+}

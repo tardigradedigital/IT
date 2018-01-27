@@ -1,0 +1,30 @@
+extends part
+
+block partpage
+  .col-lg-8(data-ng-init="sideBar = false")
+  .col-lg-4
+    | Additional information
+
+block actionbar
+  .input-group
+    input.form-control(type="text", placeholder="Quick search (Not implemented)")
+  p
+  .card.text-white.bg-dark(data-ng-init="getCats()")
+    .card-header(data-toggle="collapse", data-target="#itView", aria-expanded="false")
+      span.fa.fa-sliders.fa-fw
+      span.pl-1 View Options
+    .card-body.collapse#itView
+    .card-footer(data-ng-init="getPartCount()")
+      span.fa.fa-cubes.fa-fw
+      span.pl-1 
+  p
+  .btn-group-vertical
+    a.btn.btn-primary(href="/it/inv/parts/add")
+      span.fa.fa-plus.fa-fw
+      span.pl-1 Create Part
+    a.btn.btn-dark(href="/it/inv/parts/import")
+      span.fa.fa-upload.fa-fw
+      span.pl-1 Import Parts
+    a.btn.btn-dark(href="/it/inv/parts/export")
+      span.fa.fa-download.fa-fw
+      span.pl-1 Export Parts

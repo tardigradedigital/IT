@@ -1,0 +1,95 @@
+.container-fluid.content-page
+  .page-header
+    h3
+      span.fa.fa-cubes.fa-fw
+      | Inventory
+  .page-content
+    .row(data-ng-init="getParts()")
+      //- div {{results.value}}
+      .col.page-view.no-pad.bg-11.gray.mobile-pad
+        table.table.table-sm.table-striped.table-hover
+          thead.thead-inverse
+            tr
+              th(scope="col") {{partModel.partName.fieldDisp}}
+              //- th Description
+              th.d-none.d-lg-table-cell(scope="col") {{partModel.partNum.fieldDisp}}
+              th.d-none.d-lg-table-cell(scope="col") {{partModel.partCost.fieldDisp}}
+              th.d-none.d-lg-table-cell(scope="col") {{partModel.partStore.fieldDisp}}
+              //- th Stock
+              //- th Category
+              //- th Notes
+              //- th Supplier
+              //- th Supplier URLs
+              //- th Serialization
+              th.d-none.d-md-table-cell Availability
+          tbody
+            tr(data-ng-repeat="part in inventory.parts", data-ng-click="partView(part.PART_NUM)")
+              td {{part.PART_FRIENDLY}}
+              td.d-none.d-lg-table-cell {{part.PART_NUM}}
+              td.d-none.d-lg-table-cell {{part.PART_COST | currency}}
+              td.d-none.d-lg-table-cell {{part.LOC_NAME}}
+              td.d-none.d-md-table-cell {{part.PART_SERIAL == 0 ? (part.PART_STOCK > 0 ? part.PART_STOCK + ' in stock' : 'Out of stock' ) : (part.SPART_STOCK > 0 ? part.SPART_STOCK + ' in stock' : 'Out of stock')}}
+            tr(data-ng-show="inventory.parts == 0")
+              td(colspan="5")
+                span No parts match the current filter
+          tfoot
+            tr
+              td(colspan="5")
+                button.btn.btn-xs.btn-dark.float-left(data-ng-disabled="userView.invPage <= 1", data-ng-click="userView.invPage = userView.invPage - 1; console.log(userView.invPage)") Prev {{userView.invLimit}}
+                button.btn.btn-xs.btn-dark.float-right(data-ng-disabled="(inventory.partCount / userView.invLimit) <= userView.invPage ", data-ng-click="userView.invPage = userView.invPage + 1") Next {{userView.invLimit}}
+      .col-2.action-bar.d-none.d-md-block
+        .input-group
+          input.form-control(type="text", placeholder="Quick search", data-ng-model="userView.invSearch")
+        p
+        .card.text-white.bg-dark(data-ng-init="getCats()")
+          .card-header(data-toggle="collapse", data-target="#itView", aria-expanded="false")
+            span.fa.fa-sliders-h.fa-fw
+            span.pl-1 View Options
+            span.float-right
+              span.fa.fa-sort.fa-fw
+          .card-body.collapse#itView
+            .input-group
+              span.input-group-addon Items per page
+              select.custom-select.form-control(data-ng-model="userView.invLimit", data-ng-options="l for l in viewOptions.limits")
+            .input-group
+              span.input-group-addon Category
+              select.custom-select.form-control(data-ng-model="userView.invCat", data-ng-options="l.CAT_NAME as l.CAT_NAME for l in viewOptions.categories")
+          .card-footer
+            span.fa.fa-cubes.fa-fw
+            span.pl-1 Found {{inventory.partCount}} part{{inventory.partCount == 1 ? '': 's'}}
+        p
+        .btn-group-vertical
+          a.btn.btn-dark(href="/it/inventory")
+            span.fa.fa-cubes.fa-fw
+            span.pl-1 Inventory
+          a.btn.btn-secondary(href="/it/inventory/po/complete")
+            span.fa.fa-cube
+            span.pl-1 Part Audit
+          a.btn.btn-dark(href="/it/inventory/po")
+            span.far.fa-clipboard
+            span.pl-1 Purchase Orders
+          a.btn.btn-secondary(href="/it/inventory/po/new")
+            span.fa-layers.fa-fw
+              span.far.fa-clipboard(data-fa-transform="grow-2")
+              span.fas.fa-asterisk(data-fa-transform="shrink-8 down-2")
+            span.pl-1 Create New PO
+          a.btn.btn-secondary(href="/it/inventory/po/complete")
+            span.fa-layers.fa-fw
+              span.far.fa-clipboard(data-fa-transform="grow-2")
+              span.fas.fa-check(data-fa-transform="shrink-8 down-2")
+            span.pl-1 Complete a PO
+          a.btn.btn-danger(href="/it/inventory/parts/admin")
+            span.fa-layers.fa-fw
+              span.fas.fa-square(data-fa-transform="grow-2")
+              span.fas.fa-cog.fa-inverse(data-fa-transform="shrink-3", style="color: #454545")
+            span.pl-1 Administration
+        p
+        .card-text-white.bg-dark
+          .card-header
+            span.fa.fa-window-maximize
+            span.pl-2 Viewport: 
+            span.d-inline.d-sm-none Extra small
+            span.d-none.d-sm-inline.d-md-none Small
+            span.d-none.d-md-inline.d-lg-none Medium
+            span.d-none.d-lg-inline.d-xl-none Large
+            span.d-none.d-xl-inline Extra large

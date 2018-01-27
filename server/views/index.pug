@@ -1,0 +1,86 @@
+extends ../includes/layout
+
+block main-content
+  div#stage(data-ng-controller="itMainCtrl")
+    .wrapper
+      nav#sidebar.active
+        .sidebar-header
+          h3.tdf //coboco/it
+          strong
+            h4.tdf /it
+        ul.list-unstyled.components(data-ng-controller="itLoginCtrl")
+          li(data-ng-class="{active: location === '/'}", data-toggle="tooltip", data-placement="right", title="{{identity.isAuthenticated() ? 'Dashboard' : 'Home'}}")
+            a(href="/")
+              span.fa.fa-fw(data-ng-class="identity.isAuthenticated() ? 'fa-tachometer-alt' : 'fa-home'")
+              span.expanded.ml-2 {{identity.isAuthenticated() ? "Dashboard" : "Home"}}
+          li(data-ng-class="{active: location.includes('/apps/')}", data-ng-if="identity.isAuthenticated()", data-toggle="tooltip", data-placement="right", title="Applications")
+            a(href="/apps/home")
+              span.fa.fa-th.fa-fw
+              span.expanded.ml-2 Applications
+          //- li(data-ng-class="{active: location.includes('/apps/')}", data-ng-if="identity.isAuthenticated()", data-toggle="tooltip", data-placement="right", title="Applications")
+          //-   div(data-toggle="collapse", data-target="#apps", aria-expanded="{{location.includes('/apps/') ? true : false}}")
+          //-     span.fa.fa-th.fa-fw
+          //-     span.expanded Applications
+            //- ul.collapse.list-unstyled(data-ng-class="{show: location.includes('/apps/')}")#apps
+            //-   li(data-ng-if="identity.isAuthorized('awuser')", data-toggle="tooltip", data-placement="right", title="AirWatch")
+            //-     a(href="https://aw.coboco.net", target="_blank")
+            //-       span.fa.fa-rocket.fa-fw
+            //-       span.expanded AirWatch
+            //-   li(data-ng-class="{active: location === '/apps/specialtylist'}", data-ng-if="identity.isAuthorized('app0001') || identity.isAuthorized('admin')", data-toggle="tooltip", data-placement="right", title="Specialty Lists")
+            //-     a(href="/apps/specialtylist")
+            //-       span.fa.fa-envelope.fa-fw
+            //-       span.expanded Specialty Lists
+            //-   li(data-ng-class="{active: location === '/apps/teapot'}", data-ng-if="identity.isAuthorized('app0002') || identity.isAuthorized('admin')", data-toggle="tooltip", data-placement="right", title="I'm a little teapot")
+            //-     a(href="/apps/teapot")
+            //-       span.fa.fa-coffee.fa-fw
+            //-       span.expanded Teapot
+            //-   li(data-ng-if="identity.isAuthorized('admin')", data-toggle="tooltip", data-placement="right", title="Unifi")
+            //-     a(href="https://unifi.ubnt.com", target="_blank")
+            //-       span.fa.fa-wifi.fa-fw
+            //-       span.expanded Unifi
+          li(data-ng-class="{active: location.includes('/it/')}", data-ng-if="identity.isAuthenticated()", data-toggle="tooltip", data-placement="right", title="IT Department")
+            a(href="/it/home")
+              span.fa.fa-life-ring.fa-fw
+              span.expanded.ml-2 IT Department
+          //- li(data-ng-class="{active: location.includes('/it/')}", data-ng-if="identity.isAuthenticated()", data-toggle="tooltip", data-placement="right", title="IT Department")
+          //-   div(data-toggle="collapse", data-target="#it", aria-expanded="{{location.includes('/it/') ? true : false}}")
+          //-     span.fa.fa-life-ring.fa-fw
+          //-     span.expanded IT Department
+            //- ul.collapse.list-unstyled(data-ng-class="{show: location.includes('/it/')}")#it
+            //-   li(data-ng-class="{active: location === '/it/automation'}", data-ng-if="identity.isAuthorized('admin')", data-toggle="tooltip", data-placement="right", title="Automation")
+            //-     a(href="/it/automation")
+            //-       span.fa.fa-terminal.fa-fw
+            //-       span.expanded Automation
+            //-   li(data-ng-class="{active: location === '/it/inventory'}", data-ng-if="identity.isAuthorized('invuser')", data-toggle="tooltip", data-placement="right", title="Inventory")
+            //-     a(href="/it/inventory")
+            //-       span.fa.fa-cubes.fa-fw
+            //-       span.expanded Inventory
+            //-   li(data-ng-class="{active: location === '/it/reports'}", data-ng-if="identity.isAuthorized('invrep')", data-toggle="tooltip", data-placement="right", title="Reports")
+            //-     a(href="/it/reports")
+            //-       span.fa.fa-pie-chart.fa-fw
+            //-       span.expanded Reports
+          li(data-ng-class="{active: location === '/admin'}", data-ng-if="identity.isAuthenticated() && identity.isAuthorized('admin')", data-toggle="tooltip", data-placement="right", title="Administration")
+            a(href="/admin")
+              span.fa.fa-cogs.fa-fw
+              span.expanded.ml-2 Administration
+          li(data-ng-if="identity.isAuthenticated()" data-ng-click="signout()", data-toggle="tooltip", data-placement="right", title="Sign Out")
+            a(href="")
+              span.fa.fa-sign-out-alt.fa-fw
+              span.expanded.ml-2 Sign Out
+        .sidebar-footer
+          span.expanded
+            h5.p-3.text-center
+              div.pb-2
+                span.fab.fa-angular.fa-fw.fa-1x
+                span.fab.fa-node-js.fa-fw.fa-1x.pl-1
+                span.fab.fa-font-awesome.fa-fw.fa-1x.pl-1
+              | Version: {{version}}
+              br
+              | Coboco IT
+          #sidebarCollapse
+            .closed
+              span.fa.fa-caret-right
+            .open
+              span.fa.fa-caret-left
+      section.content
+        div(data-ng-view)

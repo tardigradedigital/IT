@@ -1,0 +1,21 @@
+.container-fluid.login-page
+  .container-fluid
+    .d-flex.justify-content-center
+      .card.border-secondary
+        .card-body
+          .card-title
+            h4.tdf Login to //coboco/it
+              span.fa.fa-lock.h3-icon
+          .card-text
+            form.pt-2
+              .input-group.form-row
+                .input-group-addon
+                  span.fa.fa-user-circle-o.fa-fw
+                input.form-control(type="text", placeholder="Username", data-ng-model="username", name="username", minlength="4")
+                .input-group-addon @coboco.net
+              .input-group.form-row
+                .input-group-addon
+                  span.fa.fa-ellipsis-h.fa-fw
+                input.form-control(type="password", placeholder="Password", data-ng-model="password", name="password", minlength="4")
+              .form-group.form-row
+                button.btn.btn-primary(data-ng-click="signin(username, password)") Sign In

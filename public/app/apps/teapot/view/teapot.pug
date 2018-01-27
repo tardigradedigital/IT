@@ -1,0 +1,87 @@
+.container-fluid.content-page
+  .page-header
+    h3
+      span.fa.fa-coffee.fa-spin.fa-fw
+      | Teapot Diagnostics
+  .page-content
+    .row
+      .col.page-view.bg-14.gray
+        .card-deck.m-3
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-database.fa-fw.mr-1
+                | SQL Server
+            .list-group.list-group-flush
+              .list-group-item.bg-dark.text-white Connection: Established
+              .list-group-item.bg-dark.text-white Server: tjnd.coboco.net
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-database.fa-fw.mr-1
+                | MongoDB
+            .list-group.list-group-flush
+              .list-group-item.bg-dark.text-white Connection: Established
+              .list-group-item.bg-dark.text-white Server: it.coboco.net
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-users.fa-fw.mr-1
+                | Registered Users
+            .list-group.list-group-flush(data-ng-init="initUserCount()")
+              .list-group-item.bg-dark.text-white Connection: MongoDB
+              .list-group-item.bg-dark.text-white Table: cbcit_users
+              .list-group-item.bg-dark.text-white Count: {{mongo.count}}
+          .card.bg-dark.text-white
+            .card-header
+              h4
+                span.fa.fa-cubes.fa-fw.mr-1
+                | Registered Parts
+            .list-group.list-group-flush(data-ng-init="initPartCount()")
+              .list-group-item.bg-dark.text-white Connection: SQL Server
+              .list-group-item.bg-dark.text-white Table: CRONOS USA, Inc_$IT Inventory Parts
+              .list-group-item.bg-dark.text-white Count: {{sql.count}}
+        .card-columns.m-3
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-database.fa-fw.mr-1
+                | Inventory Manufacturers
+            .list-group.list-group-flush(data-ng-init="initManufs()")
+              .list-group-item.bg-dark.text-white(data-ng-repeat="manuf in sql.manufs")
+                | {{manuf.MAN_INDEX}}: {{manuf.MAN_NAME}}
+          .card.bg-dark.text-white.invisible
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-database.fa-fw.mr-1
+                | Inventory Categories
+            .list-group.list-group-flush(data-ng-init="initCats()")
+              .list-group-item.bg-dark.text-white(data-ng-repeat="cat in sql.cats")
+                | {{cat.CAT_INDEX}}: {{cat.CAT_NAME}}
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-database.fa-fw.mr-1
+                | Inventory Stores
+            .list-group.list-group-flush(data-ng-init="initStores()")
+              .list-group-item.bg-dark.text-white(data-ng-repeat="store in sql.stores")
+                | {{store.LOC_INDEX}}: {{store.LOC_NAME}}
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-database.fa-fw.mr-1
+                | Inventory Suppliers
+            .list-group.list-group-flush(data-ng-init="initSupls()")
+              .list-group-item.bg-dark.text-white(data-ng-repeat="supl in sql.supls")
+                | {{supl.SUPL_INDEX}}: {{supl.SUPL_NAME}}
+        .card-deck.m-3
+          .card.bg-dark.text-white
+            .card-header
+              h4 
+                span.fa.fa-database.fa-fw.mr-1
+                | Inventory Parts
+            .list-group.list-group-flush(data-ng-init="initParts()")
+              .list-group-item.bg-dark.text-white(data-ng-repeat="part in sql.parts")
+                span(data-ng-repeat="field in part") {{field}}
+                  span(data-ng-if="!$last") , 

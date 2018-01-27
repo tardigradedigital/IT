@@ -1,0 +1,15 @@
+{
+  "name": "event-source-polyfill",
+  "version": "0.0.11",
+  "main": "src/eventsource.js",
+  "homepage": "https://github.com/Yaffle/EventSource",
+  "_release": "0.0.11",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.11",
+    "commit": "efb0d3de25b2e440c5aa4a0465e1ffcf5c529bd0"
+  },
+  "_source": "https://github.com/Yaffle/EventSource.git",
+  "_target": "^0.0.11",
+  "_originalSource": "event-source-polyfill"
+}

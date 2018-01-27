@@ -1,0 +1,560 @@
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 200;
+  src: local('Titillium WebThin'), local('TitilliumWeb-Thin'), url("../fonts/TitilliumWeb-ExtraLight.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url("../fonts/TitilliumWeb-Light.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Titillium Regular'), local('TitilliumWeb-Regular'), url("../fonts/TitilliumWeb-Regular.ttf") format('truetype');
+}
+html {
+  background-color: #121212;
+  background-image: url("/img/background-14.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100%;
+  transition: background-image 400ms ease;
+}
+body {
+  background: none;
+  background-attachment: fixed;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+}
+[ng:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+.tdf,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 300;
+}
+.h3-icon,
+.h4-icon,
+.lgr-icon {
+  float: left;
+  padding-right: 5px;
+}
+.slide-icon {
+  margin-top: -32px;
+}
+.hidden,
+.mobile-only {
+  display: none;
+}
+/**
+ * Form control
+ */
+.form-control {
+  border-radius: 2px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 5px -2px rgba(0,0,0,0.2);
+}
+.form-control:focus {
+  box-shadow: 0 1px 5px -2px #42a5f5;
+  border-bottom: 1px solid #ccc;
+}
+.form-group label {
+  color: #616161;
+}
+.form-control-validation .help-block,
+.form-control-validation .control-label,
+.form-control-validation .radio,
+.form-control-validation .checkbox,
+.form-control-validation .radio-inline,
+.form-control-validation .checkbox-inline,
+.form-control-validation .form-control.radio label,
+.form-control-validation .form-control.checkbox label,
+.form-control-validation .form-control.radio-inline label,
+.form-control-validation .form-control.checkbox-inline label {
+  color: #555;
+}
+.form-control-validation .form-control {
+  border-color: #ccc;
+}
+.form-control-validation .form-control:focus {
+  border-color: #b8b8b8;
+  box-shadow: 0 1px 5px -2px #f5f5f5;
+}
+.form-control-validation .input-group-addon {
+  color: #555;
+  border-color: #ccc;
+  background-color: #f5f5f5;
+}
+.form-control-validation .form-control-feedback {
+  color: #555;
+}
+.input-group-addon,
+.input-group-btn {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 0;
+}
+.has-success .form-control-validation {
+  color: #4caf50;
+  border-color: #4caf50;
+  background-color: #c8e6c9;
+}
+.has-warning .form-control-validation {
+  color: #ff9800;
+  border-color: #ff9800;
+  background-color: #ffe0b2;
+}
+.has-error .form-control-validation {
+  color: #f44336;
+  border-color: #f44336;
+  background-color: #ffcdd2;
+}
+#stage {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+.wrapper {
+  display: flex;
+}
+.wrapper #sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  height: 100vh;
+  background: rgba(55,55,55,0.6);
+  color: #9d9d9d;
+  transition: all 0.3s;
+}
+.wrapper #sidebar .expanded {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px;
+}
+.wrapper #sidebar a[data-toggle="collapse"] {
+  position: relative;
+}
+.wrapper #sidebar .sidebar-header {
+  padding: 20px;
+  background: #0a0a0a;
+  color: #efefef;
+}
+.wrapper #sidebar .sidebar-header strong {
+  display: none;
+}
+.wrapper #sidebar .sidebar-header #loginWidget {
+  font-size: 15px;
+}
+.wrapper #sidebar .sidebar-header #loginWidget span {
+  padding-right: 4px;
+}
+.wrapper #sidebar .sidebar-header #loginWidget span span {
+  padding-left: 4px;
+  font-size: 16px;
+}
+.wrapper #sidebar .sidebar-footer {
+  position: absolute;
+  bottom: 8px;
+  width: 250px;
+  font-size: 1.8em;
+  transition: width 200ms linear;
+}
+.wrapper #sidebar .sidebar-footer #sidebarCollapse:hover {
+  color: #fff;
+  background: #0a0a0a;
+  transition: all 200ms linear;
+}
+.wrapper #sidebar .sidebar-footer div {
+  text-align: center;
+  color: #ccc;
+}
+.wrapper #sidebar .sidebar-footer div .open {
+  display: block;
+}
+.wrapper #sidebar .sidebar-footer div .closed {
+  display: none;
+}
+.wrapper #sidebar .sidebar-footer div div:hover {
+  color: #fff;
+}
+.wrapper #sidebar ul.components {
+  padding: 20px 0;
+}
+.wrapper #sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+.wrapper #sidebar ul li a,
+.wrapper #sidebar ul li div {
+  color: #d9d9d9;
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+  text-decoration: none;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.wrapper #sidebar ul li a span,
+.wrapper #sidebar ul li div span {
+  padding-right: 5px;
+}
+.wrapper #sidebar ul li a:hover,
+.wrapper #sidebar ul li div:hover {
+  color: #fff;
+  background: rgba(15,15,15,0.95);
+}
+.wrapper #sidebar ul li.active > a,
+.wrapper #sidebar ul li.active > div {
+  color: #fff;
+  background: #0a0a0a;
+}
+.wrapper #sidebar ul li.active > a span.fa,
+.wrapper #sidebar ul li.active > div span.fa {
+  text-shadow: 0 0 5px #000;
+}
+.wrapper #sidebar ul div[aria-expanded="true"],
+.wrapper #sidebar ul div[aria-expanded="true"]:hover {
+  color: #fff;
+  background: #050505 !important;
+}
+.wrapper #sidebar ul div[aria-expanded="true"]:hover {
+  background: #252525;
+}
+.wrapper #sidebar ul ul li a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: rgba(25,25,25,0.8);
+}
+.wrapper #sidebar.active {
+  min-width: 80px;
+  max-width: 80px;
+  text-align: center;
+}
+.wrapper #sidebar.active .expanded {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px;
+}
+.wrapper #sidebar.active .sidebar-header h3 {
+  display: none;
+}
+.wrapper #sidebar.active .sidebar-header strong {
+  display: block;
+}
+.wrapper #sidebar.active .sidebar-header #loginWidget span span {
+  display: none;
+}
+.wrapper #sidebar.active ul li a,
+.wrapper #sidebar.active ul li div {
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.wrapper #sidebar.active ul li a span,
+.wrapper #sidebar.active ul li div span {
+  margin: auto;
+  display: block;
+  font-size: 1.8em;
+  text-align: center;
+}
+.wrapper #sidebar.active ul li a span.expanded,
+.wrapper #sidebar.active ul li div span.expanded {
+  display: none;
+}
+.wrapper #sidebar.active ul ul a {
+  padding: 10px !important;
+}
+.wrapper #sidebar.active .sidebar-footer {
+  position: absolute;
+  bottom: 10px;
+  font-size: 1.8em;
+  width: 80px;
+}
+.wrapper #sidebar.active .sidebar-footer span.expanded {
+  display: none;
+}
+.wrapper #sidebar.active .sidebar-footer div {
+  text-align: center;
+  color: #ccc;
+}
+.wrapper #sidebar.active .sidebar-footer div .closed {
+  display: block;
+}
+.wrapper #sidebar.active .sidebar-footer div .open {
+  display: none;
+}
+.wrapper #sidebar.active .sidebar-footer div div:hover {
+  color: #fff;
+}
+.wrapper section.content {
+  height: 100vh;
+  width: 100%;
+  background: rgba(255,255,255,0.95);
+  color: #121212;
+}
+.wrapper section.content > div > .container,
+.wrapper section.content > div > .container-fluid {
+  height: 100vh;
+  overflow-y: auto;
+  margin-left: unset;
+}
+.wrapper section.content .login-page {
+  padding: 0 !important;
+  background-color: #121212;
+  background-image: url("/img/background-7-min.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100%;
+}
+.wrapper section.content .login-page > .container-fluid {
+  background: rgba(245,245,245,0.3);
+  padding: 5px;
+  height: 100vh;
+}
+.wrapper section.content .login-page .d-flex {
+  margin-top: 12%;
+}
+.wrapper section.content .login-page .d-flex .card {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 22rem;
+  height: 13.5rem;
+}
+.wrapper section.content .login-page .d-flex .card .input-group {
+  margin-bottom: 0.5rem;
+}
+.wrapper section.content .login-page .d-flex .card .input-group .valid {
+  box-shadow: inset 0 -7px 5px -8px #00cc1b;
+}
+.wrapper section.content .content-page {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+.wrapper section.content .content-page .page-header {
+  height: 74px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.wrapper section.content .content-page .page-header h3 {
+  padding: 20px 10px;
+  padding-right: 0;
+  margin-bottom: 0;
+  background: #0a0a0a;
+  color: #fff;
+  height: 74px;
+  font-weight: 100;
+}
+.wrapper section.content .content-page .page-header h3 span,
+.wrapper section.content .content-page .page-header h3 svg {
+  margin: 0 8px;
+}
+.wrapper section.content .content-page .page-content {
+  position: relative;
+  height: calc(100vh - 74px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.wrapper section.content .content-page .page-content .page-view {
+  height: calc(100vh - 74px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.wrapper section.content .content-page .page-content .page-view .card-deck .card {
+  margin-bottom: 15px;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view {
+  border-radius: 0;
+  height: 100%;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-header h4 {
+  padding-top: 8px;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table {
+  background: #fff;
+  border: 0;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td {
+  font-weight: 400;
+  font-size: 14px;
+  padding: 1px 10px;
+  border: 0;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm {
+  width: 225px;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm .disabled {
+  color: #bcbcbc;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm textarea {
+  height: 60px;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm select {
+  height: 30px;
+  padding: 0.25rem 0.25rem;
+  line-height: 1.2;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm .btn-group-justified {
+  width: 225px;
+  height: 30px;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm .btn-group-justified .btn {
+  padding: 0.3rem 0.7rem;
+  font-size: 13px;
+  width: 76px;
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 5px -2px rgba(0,0,0,0.2);
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm .btn-group-justified .btn.active,
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm .btn-group-justified .btn.active:hover {
+  border: 1px solid #e0e0e0;
+  background: rgba(225,225,225,0.4);
+  color: #121212;
+}
+.wrapper section.content .content-page .page-content .page-view .part-view .card-body table tbody td .input-group-sm .btn-group-justified .btn:hover {
+  background: rgba(200,200,200,0.2);
+  color: #616161;
+}
+.wrapper section.content .content-page .page-content .page-view table {
+  border-top: 0;
+  font-size: 13px;
+  margin-bottom: 0;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e9ecef;
+}
+.wrapper section.content .content-page .page-content .page-view table td {
+  padding: 0.225rem;
+  -webkit-padding-before: 0.3rem;
+  -webkit-padding-end: 0.3rem;
+  -webkit-padding-after: 0.3rem;
+  -webkit-padding-start: 0.3rem;
+}
+.wrapper section.content .content-page .page-content .page-view table tbody td {
+  font-weight: 400;
+}
+.wrapper section.content .content-page .page-content .page-view table tfoot tr,
+.wrapper section.content .content-page .page-content .page-view table tfoot tr:hover {
+  position: relative;
+  background: #212529;
+  color: #fff;
+  padding: 3px 5px;
+}
+.wrapper section.content .content-page .page-content .page-view table tfoot tr .btn-xs,
+.wrapper section.content .content-page .page-content .page-view table tfoot tr:hover .btn-xs {
+  padding: 0.05rem 0.5rem !important;
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+  border-radius: 0.2rem !important;
+  margin: 1px;
+}
+.wrapper section.content .content-page .page-content .bg-7 {
+  background: url("/img/background-7-min.jpg") no-repeat;
+  background-size: cover;
+}
+.wrapper section.content .content-page .page-content .bg-9 {
+  background: url("/img/background-9-min.jpg") no-repeat;
+  background-size: cover;
+}
+.wrapper section.content .content-page .page-content .bg-10 {
+  background: url("/img/background-10-min.jpg") no-repeat;
+  background-size: cover;
+}
+.wrapper section.content .content-page .page-content .bg-11 {
+  background: url("/img/background-11-min.jpg") no-repeat;
+  background-size: cover;
+}
+.wrapper section.content .content-page .page-content .bg-12 {
+  background: url("/img/background-12-min.jpg") no-repeat;
+  background-size: cover;
+}
+.wrapper section.content .content-page .page-content .bg-13 {
+  background: url("/img/background-13-min.jpg") no-repeat;
+  background-size: cover;
+}
+.wrapper section.content .content-page .page-content .bg-14 {
+  background: url("/img/background-14.jpg") no-repeat;
+  background-size: cover;
+}
+.wrapper section.content .content-page .page-content .gray {
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+  filter: #808080;
+  -webkit-filter: grayscale(100%);
+}
+.wrapper section.content .content-page .page-content .no-pad {
+  padding: 0;
+  margin-left: 16px;
+}
+.wrapper section.content .content-page .page-content .action-bar {
+  background: #272727;
+  border: 1px solid #e9ecef;
+  border-width: 0 0 0 1px;
+  color: #fff;
+  height: calc(100vh - 74px);
+  padding: 15px;
+  margin-right: 15px;
+  width: 312px;
+  min-width: 312px;
+}
+.wrapper section.content .content-page .page-content .action-bar .card {
+  cursor: default;
+}
+.wrapper section.content .content-page .page-content .action-bar .card .input-group {
+  margin-bottom: 4px;
+}
+.wrapper section.content .content-page .page-content .action-bar .btn-group-vertical {
+  width: 100%;
+}
+.wrapper section.content .content-page .page-content .action-bar .btn-group-vertical .btn-secondary {
+  background-color: #42474c;
+  border-color: #42474c;
+}
+.wrapper section.content .content-page .page-content .action-bar .btn-group-vertical .btn-secondary:hover {
+  background-color: #50565c;
+  border-color: #4c5258;
+}
+.wrapper section.content .content-page .page-content .action-bar .btn-group-vertical .btn-danger {
+  background-color: #ba202f;
+  border-color: #ba202f;
+}
+.wrapper section.content .content-page .page-content .action-bar .btn-group-vertical .btn-danger:hover {
+  background-color: #8c1824;
+  border-color: #841722;
+}
+0% {
+  opacity: 0.3;
+}
+50% {
+  opacity: 1;
+}
+100% {
+  opacity: 0.3;
+}

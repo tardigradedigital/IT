@@ -1,0 +1,93 @@
+.container-fluid.content-page
+  .page-header
+    h3
+      span.far.fa-clipboard.fa-fw
+      | Purchase Orders
+  .page-content
+    .row(data-ng-init="getPOs()")
+      //- div {{results.value}}
+      .col.page-view.no-pad.bg-11.gray.mobile-pad
+        table.table.table-sm.table-striped.table-hover
+          thead.thead-inverse
+            tr
+              th(scope="col") {{poModel.poNum.fieldDisp}}
+              th.d-none.d-lg-table-cell(scope="col") {{poModel.poOdate.fieldDisp}}
+              th.d-none.d-lg-table-cell(scope="col") {{poModel.poCdate.fieldDisp}}
+              th.d-none.d-lg-table-cell(scope="col") {{poModel.poVendor.fieldDisp}}
+              th(scope="col") {{poModel.poIcount.fieldDisp}}
+              th.d-none.d-lg-table-cell(scope="col") {{poModel.poCost.fieldDisp}}
+              th(scope="col") {{poModel.poStatus.fieldDisp}}
+          tbody
+            tr(data-ng-repeat="po in pos.pos | unique:'PO_NUM'", data-ng-click="poView(po.PO_NUM)")
+              td {{po.PO_NUM}}
+              td.d-none.d-lg-table-cell {{po.PO_ODATE | date: 'MM/dd/yyyy'}}
+              td.d-none.d-lg-table-cell {{po.PO_CDATE | date: 'MM/dd/yyyy'}}
+              td.d-none.d-lg-table-cell {{po.SUPL_NAME}}
+              td {{po.PO_ICOUNT}}
+              td.d-none.d-lg-table-cell {{po.PO_COST + po.PO_TAX + po.PO_SHIP | currency}}
+              td(data-ng-if="po.PO_STATUS == 0") {{po.PO_STATUS | postatus}}
+                |  (
+                a(href="") Review
+                | )
+              td(data-ng-if="po.PO_STATUS > 0") {{po.PO_STATUS | postatus}}
+            tr(data-ng-show="pos.pos == 0")
+              td(colspan="7")
+                span No parts match the current filter
+          tfoot
+            tr
+              td(colspan="7")
+                button.btn.btn-xs.btn-dark.float-left(data-ng-disabled="userView.poPage <= 1", data-ng-click="userView.poPage = userView.poPage - 1") Prev {{userView.poLimit}}
+                button.btn.btn-xs.btn-dark.float-right(data-ng-disabled="(pos.poCount / userView.poLimit) <= userView.poPage ", data-ng-click="userView.poPage = userView.poPage + 1") Next {{userView.poLimit}}
+      .col-2.action-bar.d-none.d-md-block
+        .input-group
+          input.form-control(type="text", placeholder="Quick search", data-ng-model="userView.poSearch")
+        p
+        .card.text-white.bg-dark
+          .card-header(data-toggle="collapse", data-target="#itView", aria-expanded="false")
+            span.fa.fa-sliders-h.fa-fw
+            span.pl-1 View Options
+            span.float-right
+              span.fa.fa-sort.fa-fw
+          .card-body.collapse#itView
+            .input-group
+              span.input-group-addon Items per page
+              select.custom-select.form-control(data-ng-model="userView.poLimit", data-ng-options="l for l in viewOptions.limits")
+          .card-footer
+            span.fa.fa-cubes.fa-fw
+            span.pl-1 Found {{pos.poCount}} order{{pos.poCount == 1 ? '': 's'}}
+        p
+        .btn-group-vertical
+          a.btn.btn-dark(href="/it/inventory")
+            span.fa.fa-cubes.fa-fw
+            span.pl-1 Inventory
+          a.btn.btn-secondary(href="/it/inventory/po/complete")
+            span.fa.fa-cube
+            span.pl-1 Part Audit
+          a.btn.btn-dark(href="/it/inventory/po")
+            span.far.fa-clipboard
+            span.pl-1 Purchase Orders
+          a.btn.btn-secondary(href="/it/inventory/po/new")
+            span.fa-layers.fa-fw
+              span.far.fa-clipboard(data-fa-transform="grow-2")
+              span.fas.fa-asterisk(data-fa-transform="shrink-8 down-2")
+            span.pl-1 Create New PO
+          a.btn.btn-secondary(href="/it/inventory/po/complete")
+            span.fa-layers.fa-fw
+              span.far.fa-clipboard(data-fa-transform="grow-2")
+              span.fas.fa-check(data-fa-transform="shrink-8 down-2")
+            span.pl-1 Complete a PO
+          a.btn.btn-danger(href="/it/inventory/parts/admin")
+            span.fa-layers.fa-fw
+              span.fas.fa-square(data-fa-transform="grow-2")
+              span.fas.fa-cog.fa-inverse(data-fa-transform="shrink-3", style="color: #454545")
+            span.pl-1 Administration
+        p
+        .card-text-white.bg-dark
+          .card-header
+            span.fa.fa-window-maximize
+            span.pl-2 Viewport: 
+            span.d-inline.d-sm-none Extra small
+            span.d-none.d-sm-inline.d-md-none Small
+            span.d-none.d-md-inline.d-lg-none Medium
+            span.d-none.d-lg-inline.d-xl-none Large
+            span.d-none.d-xl-inline Extra large

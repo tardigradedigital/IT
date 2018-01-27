@@ -1,0 +1,39 @@
+.container-fluid.content-page
+  .page-header
+    h3
+      span.fa.fa-cubes.fa-fw
+      | Inventory
+  .page-content(style="height: calc(100% - 74px)")
+    .row.h-100.justify-content-center.align-items-center(data-ng-show="!inventory.partLoaded")
+      .col-page-view.no-pad
+        span.fas.fa-spinner.fa-pulse.fa-4x
+    .row(data-ng-show="inventory.partLoaded")
+      //- div {{results.value}}
+      .col.page-view.no-pad.bg-11.gray
+        .card.part-view(data-ng-init="getPart(partPath)")
+          .card-header
+            h4
+              span.fa.fa-cube.fa-fw
+              | {{inventory.partFocus.PART_FRIENDLY}}
+          .card-header
+            ul.nav.nav-tabs.card-header-tabs
+              li.nav-item
+                a.nav-link(href="/it/inventory")
+                  span.fa.fa-cubes.fa-fw
+              li.nav-item
+                a.nav-link(href="/it/inventory/parts/{{partPath}}", data-ng-class="{active: location.match('/it/inventory/parts/.[^/]+?$')}")
+                  span.fa.fa-cube.fa-fw
+                  | Part Details
+              li.nav-item(data-ng-if="inventory.partFocus.PART_SERIAL > 0")
+                a.nav-link(href="/it/inventory/parts/{{partPath}}/serials", data-ng-class="{active: location.match('/it/inventory/parts/.*/serials$')}")
+                  span.fa.fa-microchip.fa-fw
+                  | Serialized Parts
+              li.nav-item
+                a.nav-link(href="/it/inventory/parts/{{partPath}}/history", data-ng-class="{active: location.match('/it/inventory/parts/.*/history$')}")
+                  span.fa.fa-id-badge.fa-fw
+                  | History Log
+          .card-body
+            .row
+              block partpage
+      .col-2.action-bar(data-ng-show="sideBar === true")
+        block actionbar
